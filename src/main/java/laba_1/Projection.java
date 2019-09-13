@@ -24,8 +24,8 @@ public class Projection {
         return newVector;
     }
 
-    public static Point obliqueProjection(Point coordinate) {
+    public static MyPoint2D obliqueProjection(MyPoint3D coordinate) {
         double newCoordinate[] = multiplicationVectorMatriz(new double[]{coordinate.getX(), coordinate.getY(), coordinate.getZ(), 1}, T);
-        return new Point((int)newCoordinate[0], (int)newCoordinate[1], (int)newCoordinate[2]);
+        return new MyPoint2D((int)newCoordinate[0], (int)newCoordinate[1]);
     }
 }

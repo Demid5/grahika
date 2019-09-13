@@ -1,13 +1,13 @@
 package laba_1;
 
-public class Point {
+public class MyPoint3D {
     private int x, y, z;
 
-    public Point() {
+    public MyPoint3D() {
 
     }
 
-    public Point(int x, int y, int z) {
+    public MyPoint3D(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
