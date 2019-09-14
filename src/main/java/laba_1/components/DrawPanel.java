@@ -1,42 +1,35 @@
 package laba_1.components;
 
-import laba_1.MyPoint2D;
-import laba_1.MyPoint3D;
-import laba_1.Projection;
-import laba_1.Rotation;
+import laba_1.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 
-/**
- * 1 sm = 25 px
- */
-
-
 public class DrawPanel extends JPanel {
 
-    private static int countt = 0;
-
+    private static Cube cube;
+    private static Rotation rotation;
+    private static Dilatation dilatation;
 
     private static int S_HEIGHT, S_WIDTH;
 
-    private int getX(int x) {
-        return x * 25 + S_WIDTH / 4;
+    private int getX(double x) {
+        return (int)(x + S_WIDTH / 4);
     }
 
-    private int getY(int y) {
-        return  (-y * 25) + S_HEIGHT / 4;
+    private int getY(double y) {
+        return  (int)((-y + S_HEIGHT / 4));
     }
 
     public DrawPanel() {
-        // получить размеры экрана
-
+        cube = new Cube();
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
         S_HEIGHT = screenSize.height;
         S_WIDTH = screenSize.width;
-
+        rotation = new Rotation(Math.PI / 6);
+        dilatation = new Dilatation();
     }
 
     private void projectionCube(Graphics2D graphics2D,
@@ -73,54 +66,19 @@ public class DrawPanel extends JPanel {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D)g;
 
-       /* MyPoint3D A = new MyPoint3D(3, 0, 0);
-        MyPoint3D B = new MyPoint3D(5, 2, 0);
-        MyPoint3D C = new MyPoint3D(-1, 3, 0);
-        MyPoint3D D = new MyPoint3D(1, -1, 6);
 
-        A = Projection.obliqueProjection(A);
-        B = Projection.obliqueProjection(B);
-        C = Projection.obliqueProjection(C);
-        D = Projection.obliqueProjection(D);*/
-
-        // рисуем тетраэдр
-
-   /*     graphics2D.drawLine(getX(A.getX()), getY(A.getY()), getX(B.getX()), getY(B.getY()));
-        graphics2D.drawLine(getX(A.getX()), getY(A.getY()), getX(C.getX()), getY(C.getY()));
-        graphics2D.drawLine(getX(B.getX()), getY(B.getY()), getX(C.getX()), getY(C.getY()));
-
-        graphics2D.drawLine(getX(D.getX()), getY(D.getY()), getX(A.getX()), getY(A.getY()));
-        graphics2D.drawLine(getX(D.getX()), getY(D.getY()), getX(B.getX()), getY(B.getY()));
-        graphics2D.drawLine(getX(D.getX()), getY(D.getY()), getX(C.getX()), getY(C.getY()));*/
-        
-        // нарисуем координатные оси
-/*
-        MyPoint2D O = new MyPoint2D(0, 0);
-        MyPoint2D OX = new MyPoint2D(20, 0);
-        MyPoint2D OY = new MyPoint2D(0, 20);
-        graphics2D.drawLine(getX(O.getX()), getY(O.getY()), getX(OX.getX()), getY(OX.getY()));
-        graphics2D.drawLine(getX(O.getX()), getY(O.getY()), getX(OY.getX()), getY(OY.getY()));
-
-        //*/
+        projectionCube(graphics2D, cube.getA(), cube.getB(), cube.getC(), cube.getD(), cube.getE(),
+                cube.getF(), cube.getG(), cube.getK());
 
 
-        MyPoint3D A = new MyPoint3D(0, 0, 0);
-        MyPoint3D B = new MyPoint3D(3, 0, 0);
-        MyPoint3D C = new MyPoint3D(0, 3, 0);
-        MyPoint3D D = new MyPoint3D(3, 3, 0);
-        MyPoint3D E = new MyPoint3D(0, 0, 3);
-        MyPoint3D F = new MyPoint3D(3, 0, 3);
-        MyPoint3D G = new MyPoint3D(0, 3, 3);
-        MyPoint3D K = new MyPoint3D(3, 3, 3);
+        // кнопка выбора оси координат , вокруг которой будем крутить
 
-
-        if (countt == 1) {
-            projectionCube(graphics2D, A, B, C, D, E, F, G, K);
-        }
-
-        if (countt == 2) {
-            graphics2D.drawLine(200, 200, 300, 300);
-        }
+        JComboBox<String> selectExis = new JComboBox<>();
+        selectExis.addItem("OX");
+        selectExis.addItem("OY");
+        selectExis.addItem("OZ");
+        selectExis.setBounds(10, 50, 100, 30);
+        add(selectExis);
 
 
 
@@ -128,10 +86,32 @@ public class DrawPanel extends JPanel {
         buttonRotation.setBounds(10, 100, 200, 30);
         add(buttonRotation);
         buttonRotation.addActionListener(event-> {
-            Rotation.initMatriz(Math.PI / 6);
-            countt++;
+            rotation.setExis((String) selectExis.getSelectedItem());
+            rotation.setConversionPoints(cube);
             repaint();
         });
+
+
+        // кнопка выбора растяжения или сжатия изображения
+
+        JComboBox<String> selectDilitation = new JComboBox<>();
+        selectDilitation.addItem("Растяжение");
+        selectDilitation.addItem("Сжатие");
+        selectDilitation.setBounds(10, 150, 100, 30);
+        add(selectDilitation);
+
+
+        JButton buttonDilitation = new JButton("Масштабировать");
+        buttonDilitation.setBounds(10, 250, 200, 30);
+        add(buttonDilitation);
+        buttonDilitation.addActionListener(event-> {
+            dilatation.setMatrizDilatation((String)selectDilitation.getSelectedItem());
+            dilatation.setConversionPoints(cube);
+            repaint();
+        });
+
+
+
 
     }
 }

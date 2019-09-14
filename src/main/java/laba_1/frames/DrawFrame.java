@@ -21,9 +21,5 @@ public class DrawFrame extends JFrame {
 
         setSize(screenWidth / 2, screenHeight / 2);
         setLocationByPlatform(true);
-
-
-
-
     }
 }

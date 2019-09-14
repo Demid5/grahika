@@ -1,6 +1,7 @@
 package laba_1;
 
-public class Projection {
+public class Projection  {
+
 
     private static final double T[][] = {
         { 1, 0, 0, 0},
@@ -10,22 +11,9 @@ public class Projection {
     };
 
 
-    private static double[] multiplicationVectorMatriz(double vector[], double matriz[][]) {
-        double newVector[] = new double[vector.length];
-        int n = matriz.length, m = matriz[0].length;
-        double curSum = 0;
-        for (int i = 0; i < m; ++i) {
-            curSum = 0;
-            for (int j = 0; j < n; ++j) {
-                curSum += (vector[j] * matriz[j][i]);
-            }
-            newVector[i] = curSum;
-        }
-        return newVector;
+    public static MyPoint2D obliqueProjection(MyPoint3D coordinate) {
+        double newCoordinate[][] = Matriz.multiplicationMatriz(new double[][]{{coordinate.getX(), coordinate.getY(), coordinate.getZ(), 1}}, T);
+        return new MyPoint2D(newCoordinate[0][0], newCoordinate[0][1]);
     }
 
-    public static MyPoint2D obliqueProjection(MyPoint3D coordinate) {
-        double newCoordinate[] = multiplicationVectorMatriz(new double[]{coordinate.getX(), coordinate.getY(), coordinate.getZ(), 1}, T);
-        return new MyPoint2D((int)newCoordinate[0], (int)newCoordinate[1]);
-    }
 }

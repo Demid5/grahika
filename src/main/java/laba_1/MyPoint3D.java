@@ -1,27 +1,27 @@
 package laba_1;
 
 public class MyPoint3D {
-    private int x, y, z;
+    private double x, y, z;
 
     public MyPoint3D() {
 
     }
 
-    public MyPoint3D(int x, int y, int z) {
+    public MyPoint3D(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public int getZ() {
+    public double getZ() {
         return z;
     }
 }
