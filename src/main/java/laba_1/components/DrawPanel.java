@@ -1,9 +1,12 @@
 package laba_1.components;
 
-import laba_1.*;
+import laba_1.Edge;
+import laba_1.Projection;
 import laba_1.conversion.Dilatation;
 import laba_1.conversion.Rotation;
 import laba_1.conversion.Translation;
+import laba_1.figures.Cube;
+import laba_1.figures.Figure;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,10 +14,11 @@ import java.awt.*;
 
 public class DrawPanel extends JPanel {
 
-    private static Cube cube;
+    private static Figure cube;
     private static Rotation rotation;
     private static Dilatation dilatation;
     private static Translation translation;
+    private static Projection projection;
 
     private static int S_HEIGHT, S_WIDTH;
 
@@ -35,57 +39,23 @@ public class DrawPanel extends JPanel {
         rotation = new Rotation(Math.PI / 6);
         dilatation = new Dilatation();
         translation = new Translation();
+        projection = new Projection();
     }
 
-    private void projectionCube(Graphics2D graphics2D,
-                          MyPoint3D A, MyPoint3D B, MyPoint3D C, MyPoint3D D,
-                          MyPoint3D E, MyPoint3D F, MyPoint3D G, MyPoint3D K) {
-        MyPoint2D a = Projection.obliqueProjection(A);
-        MyPoint2D b = Projection.obliqueProjection(B);
-        MyPoint2D c = Projection.obliqueProjection(C);
-        MyPoint2D d = Projection.obliqueProjection(D);
-        MyPoint2D e = Projection.obliqueProjection(E);
-        MyPoint2D f = Projection.obliqueProjection(F);
-        MyPoint2D gg = Projection.obliqueProjection(G);
-        MyPoint2D k = Projection.obliqueProjection(K);
-
-        graphics2D.drawLine(getX(a.getX()), getY(a.getY()), getX(b.getX()), getY(b.getY()));
-        graphics2D.drawLine(getX(a.getX()), getY(a.getY()), getX(c.getX()), getY(c.getY()));
-        graphics2D.drawLine(getX(d.getX()), getY(d.getY()), getX(c.getX()), getY(c.getY()));
-        graphics2D.drawLine(getX(d.getX()), getY(d.getY()), getX(b.getX()), getY(b.getY()));
-
-
-        graphics2D.drawLine(getX(e.getX()), getY(e.getY()), getX(f.getX()), getY(f.getY()));
-        graphics2D.drawLine(getX(e.getX()), getY(e.getY()), getX(gg.getX()), getY(gg.getY()));
-        graphics2D.drawLine(getX(k.getX()), getY(k.getY()), getX(gg.getX()), getY(gg.getY()));
-        graphics2D.drawLine(getX(k.getX()), getY(k.getY()), getX(f.getX()), getY(f.getY()));
-
-
-        graphics2D.drawLine(getX(a.getX()), getY(a.getY()), getX(e.getX()), getY(e.getY()));
-        graphics2D.drawLine(getX(b.getX()), getY(b.getY()), getX(f.getX()), getY(f.getY()));
-        graphics2D.drawLine(getX(c.getX()), getY(c.getY()), getX(gg.getX()), getY(gg.getY()));
-        graphics2D.drawLine(getX(d.getX()), getY(d.getY()), getX(k.getX()), getY(k.getY()));
+    private void projectionFigure(Graphics2D graphics2D, Figure figure) {
+        projection.setConversionPoints(figure);
+        for (Edge edge: figure.getEdges()) {
+            graphics2D.drawLine(getX(edge.getA().getX()), getY(edge.getA().getY()), getX(edge.getB().getX()),getY(edge.getB().getY()));
+        }
     }
 
-
-    private void addButtonTranslation(String textButton, int x, int y, double yy, double nn, double vv) {
-        JButton buttonTranslationOX = new JButton(textButton);
-        buttonTranslationOX.setBounds(x, y, 200, 30);
-        add(buttonTranslationOX);
-        buttonTranslationOX.addActionListener(event-> {
-            translation.setMatrizTraslation(yy, nn, vv);
-            translation.setConversionPoints(cube);
-            repaint();
-        });
-    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D)g;
 
 
-        projectionCube(graphics2D, cube.getA(), cube.getB(), cube.getC(), cube.getD(), cube.getE(),
-                cube.getF(), cube.getG(), cube.getK());
+        projectionFigure(graphics2D, cube);
 
 
         // чеклист выбора оси координат , вокруг которой будем крутить
@@ -99,7 +69,7 @@ public class DrawPanel extends JPanel {
 
 
 
-        JButton buttonRotation = new JButton("Вращать по оси OZ");
+        JButton buttonRotation = new JButton("Вращать");
         buttonRotation.setBounds(10, 100, 200, 30);
         add(buttonRotation);
         buttonRotation.addActionListener(event-> {
@@ -128,8 +98,21 @@ public class DrawPanel extends JPanel {
         });
 
 
-        addButtonTranslation("Перенос по оси OX", 10, 250, 5, 0, 0);
-        addButtonTranslation("Перенос по оси OY", 10, 300, 0, 5, 0);
-        addButtonTranslation("Перенос по оси OZ", 10, 350, 0, 0, 5);
+        JComboBox<String> selectTranslation = new JComboBox<>();
+        selectTranslation.addItem("по оси OX");
+        selectTranslation.addItem("по оси OY");
+        selectTranslation.addItem("по оси OZ");
+        selectTranslation.setBounds(10, 250, 100, 30);
+        add(selectTranslation);
+
+        JButton buttonTranslationOX = new JButton("Перенос");
+        buttonTranslationOX.setBounds(10, 300, 200, 30);
+        add(buttonTranslationOX);
+        buttonTranslationOX.addActionListener(event-> {
+            translation.setMatrizTraslation((String)selectTranslation.getSelectedItem());
+            translation.setConversionPoints(cube);
+            repaint();
+        });
+
     }
 }

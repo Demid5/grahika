@@ -1,7 +1,7 @@
 package laba_1.conversion;
 
-import laba_1.Cube;
-import laba_1.conversion.Conversion;
+import laba_1.figures.Cube;
+import laba_1.figures.Figure;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -56,7 +56,7 @@ public class Rotation implements Conversion {
 
 
     @Override
-    public void setConversionPoints(Cube cube) {
+    public void setConversionPoints(Figure cube) {
         setMatrizRotation();
         Conversion.super.setConversionPoints(cube);
     }

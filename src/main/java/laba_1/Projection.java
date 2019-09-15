@@ -1,7 +1,9 @@
 package laba_1;
 
-public class Projection  {
+import laba_1.conversion.Conversion;
+import laba_1.figures.Figure;
 
+public class Projection implements Conversion {
 
     private static final double T[][] = {
         { 1, 0, 0, 0},
@@ -10,10 +12,18 @@ public class Projection  {
         {0, 0, 0, 1}
     };
 
+    public double[][] getMatriz() {
+        return T;
+    }
 
-    public static MyPoint2D obliqueProjection(MyPoint3D coordinate) {
-        double newCoordinate[][] = Matriz.multiplicationMatriz(new double[][]{{coordinate.getX(), coordinate.getY(), coordinate.getZ(), 1}}, T);
-        return new MyPoint2D(newCoordinate[0][0], newCoordinate[0][1]);
+    @Override
+    public void setConversionPoints(Figure figure) {
+        int n = figure.getPoints().length;
+        MyPoint3D coorProjection[] = new MyPoint3D[n];
+        for (int i = 0; i < n; ++i) {
+            coorProjection[i] = executeConversionPoint(figure.getPoints()[i]);
+        }
+        figure.setEdges(coorProjection);
     }
 
 }
