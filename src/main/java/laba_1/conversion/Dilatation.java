@@ -1,4 +1,4 @@
-package laba_1;
+package laba_1.conversion;
 
 public class Dilatation implements Conversion {
     private static double matrizDilatation[][];

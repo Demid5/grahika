@@ -1,7 +1,7 @@
 package laba_1;
 
 public abstract class Matriz {
-    static double[][] multiplicationMatriz(double matriz1[][], double matriz2[][]) {
+    public static double[][] multiplicationMatriz(double matriz1[][], double matriz2[][]) {
         int n = matriz1.length;
         int m = matriz2[0].length;
         int o = matriz2.length;

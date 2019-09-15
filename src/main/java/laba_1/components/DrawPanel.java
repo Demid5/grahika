@@ -1,6 +1,9 @@
 package laba_1.components;
 
 import laba_1.*;
+import laba_1.conversion.Dilatation;
+import laba_1.conversion.Rotation;
+import laba_1.conversion.Translation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +14,7 @@ public class DrawPanel extends JPanel {
     private static Cube cube;
     private static Rotation rotation;
     private static Dilatation dilatation;
+    private static Translation translation;
 
     private static int S_HEIGHT, S_WIDTH;
 
@@ -30,6 +34,7 @@ public class DrawPanel extends JPanel {
         S_WIDTH = screenSize.width;
         rotation = new Rotation(Math.PI / 6);
         dilatation = new Dilatation();
+        translation = new Translation();
     }
 
     private void projectionCube(Graphics2D graphics2D,
@@ -62,6 +67,18 @@ public class DrawPanel extends JPanel {
         graphics2D.drawLine(getX(d.getX()), getY(d.getY()), getX(k.getX()), getY(k.getY()));
     }
 
+
+    private void addButtonTranslation(String textButton, int x, int y, double yy, double nn, double vv) {
+        JButton buttonTranslationOX = new JButton(textButton);
+        buttonTranslationOX.setBounds(x, y, 200, 30);
+        add(buttonTranslationOX);
+        buttonTranslationOX.addActionListener(event-> {
+            translation.setMatrizTraslation(yy, nn, vv);
+            translation.setConversionPoints(cube);
+            repaint();
+        });
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D)g;
@@ -71,7 +88,7 @@ public class DrawPanel extends JPanel {
                 cube.getF(), cube.getG(), cube.getK());
 
 
-        // кнопка выбора оси координат , вокруг которой будем крутить
+        // чеклист выбора оси координат , вокруг которой будем крутить
 
         JComboBox<String> selectExis = new JComboBox<>();
         selectExis.addItem("OX");
@@ -102,7 +119,7 @@ public class DrawPanel extends JPanel {
 
 
         JButton buttonDilitation = new JButton("Масштабировать");
-        buttonDilitation.setBounds(10, 250, 200, 30);
+        buttonDilitation.setBounds(10, 200, 200, 30);
         add(buttonDilitation);
         buttonDilitation.addActionListener(event-> {
             dilatation.setMatrizDilatation((String)selectDilitation.getSelectedItem());
@@ -111,7 +128,8 @@ public class DrawPanel extends JPanel {
         });
 
 
-
-
+        addButtonTranslation("Перенос по оси OX", 10, 250, 5, 0, 0);
+        addButtonTranslation("Перенос по оси OY", 10, 300, 0, 5, 0);
+        addButtonTranslation("Перенос по оси OZ", 10, 350, 0, 0, 5);
     }
 }

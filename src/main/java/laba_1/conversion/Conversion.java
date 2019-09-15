@@ -1,4 +1,8 @@
-package laba_1;
+package laba_1.conversion;
+
+import laba_1.Cube;
+import laba_1.Matriz;
+import laba_1.MyPoint3D;
 
 public interface Conversion {
 

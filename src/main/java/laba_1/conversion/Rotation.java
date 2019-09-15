@@ -1,4 +1,7 @@
-package laba_1;
+package laba_1.conversion;
+
+import laba_1.Cube;
+import laba_1.conversion.Conversion;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
