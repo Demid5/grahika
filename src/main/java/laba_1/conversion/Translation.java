@@ -29,4 +29,14 @@ public class Translation implements Conversion{
                 {y, n, v, 1}
         };
     }
+
+    public void setMatrizTraslation(double y, double n, double v) {
+        this.y = y; this.n = n; this.v = v;
+        matrizTraslation = new double[][] {
+                {1, 0, 0, 0},
+                {0, 1, 0, 0},
+                {0, 0, 1, 0},
+                {y, n, v, 1}
+        };
+    }
 }

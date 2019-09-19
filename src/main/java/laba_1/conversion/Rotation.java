@@ -21,7 +21,7 @@ public class Rotation implements Conversion {
         this.exis = exis;
     }
 
-    private void setMatrizRotation() {
+    public void setMatrizRotation() {
         matrizRotation = new double[][]{
                 {1, 0, 0, 0},
                 {0, 1, 0, 0},
@@ -55,9 +55,7 @@ public class Rotation implements Conversion {
     }
 
 
-    @Override
-    public void setConversionPoints(Figure cube) {
-        setMatrizRotation();
-        Conversion.super.setConversionPoints(cube);
+    public void setMatrizRotation(double matrizRotation[][]) {
+        this.matrizRotation = matrizRotation;
     }
 }
