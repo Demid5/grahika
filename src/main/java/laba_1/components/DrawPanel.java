@@ -64,10 +64,11 @@ public class DrawPanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Figure figure = cube;
         Graphics2D graphics2D = (Graphics2D)g;
 
 
-        projectionFigure(graphics2D, bykvaP);
+        projectionFigure(graphics2D, figure);
 
 
         // добавим оси коордиант
@@ -94,7 +95,7 @@ public class DrawPanel extends JPanel {
         buttonRotation.addActionListener(event-> {
             rotation.setExis((String) selectExis.getSelectedItem());
             rotation.setMatrizRotation();
-            rotation.setConversionPoints(bykvaP);
+            rotation.setConversionPoints(figure);
             repaint();
         });
 
@@ -113,7 +114,7 @@ public class DrawPanel extends JPanel {
         add(buttonDilitation);
         buttonDilitation.addActionListener(event-> {
             dilatation.setMatrizDilatation((String)selectDilitation.getSelectedItem());
-            dilatation.setConversionPoints(bykvaP);
+            dilatation.setConversionPoints(figure);
             repaint();
         });
 
@@ -130,7 +131,7 @@ public class DrawPanel extends JPanel {
         add(buttonTranslationOX);
         buttonTranslationOX.addActionListener(event-> {
             translation.setMatrizTraslation((String)selectTranslation.getSelectedItem());
-            translation.setConversionPoints(bykvaP);
+            translation.setConversionPoints(figure);
             repaint();
         });
 
@@ -143,7 +144,7 @@ public class DrawPanel extends JPanel {
         add(buttonLab);
         buttonLab.addActionListener(event-> {
              animation.setLine(line);
-             animation.setConversionPoints(bykvaP);
+             animation.setConversionPoints(figure);
             repaint();
         });
 
