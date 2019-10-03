@@ -30,4 +30,15 @@ public class OZ implements Figure {
     public void setEdges(MyPoint3D[] pointss) {
         edges[0] = new Edge(points[0], points[1]);
     }
+
+    @Override
+    public double[][] getV() {
+        return new double[0][];
+    }
+
+    @Override
+    public void setVisible() {
+
+    }
+
 }

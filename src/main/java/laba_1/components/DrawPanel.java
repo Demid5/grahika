@@ -52,9 +52,18 @@ public class DrawPanel extends JPanel {
         graphics2D.setColor(Color.red);
         graphics2D.drawLine(getX(lineOz.getA().getX()), getY(lineOz.getA().getY()), getX(lineOz.getB().getX()),getY(lineOz.getB().getY()));
 
+
         graphics2D.setColor(Color.black);
         projection.setConversionPoints(figure);
+        figure.setVisible();
+
         for (Edge edge: figure.getEdges()) {
+            if (edge.isVisible()) {
+                graphics2D.setColor(Color.black);
+            }
+            else {
+                graphics2D.setColor(Color.orange);
+            }
             graphics2D.drawLine(getX(edge.getA().getX()), getY(edge.getA().getY()), getX(edge.getB().getX()),getY(edge.getB().getY()));
         }
     }
@@ -64,20 +73,14 @@ public class DrawPanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Figure figure = cube;
+        Figure figure = tetrader;
         Graphics2D graphics2D = (Graphics2D)g;
-
-
         projectionFigure(graphics2D, figure);
-
-
         // добавим оси коордиант
 
         graphics2D.setColor(Color.red);
         graphics2D.drawLine(getX(0), getY(0), getX(0), getY(500));
         graphics2D.drawLine(getX(0), getY(0), getX(500), getY(0));
-
-
         // чеклист выбора оси координат , вокруг которой будем крутить
 
         JComboBox<String> selectExis = new JComboBox<>();

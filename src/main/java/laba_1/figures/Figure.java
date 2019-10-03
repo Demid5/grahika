@@ -11,4 +11,6 @@ public interface Figure {
 
     void setEdges(MyPoint3D[] pointss);
 
+    double[][] getV();
+    public void setVisible();
 }

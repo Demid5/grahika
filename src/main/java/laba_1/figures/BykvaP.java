@@ -86,4 +86,15 @@ public class BykvaP implements Figure {
 
         edges[22] = new Edge(pointss[16], pointss[17]);
         edges[23] = new Edge(pointss[19], pointss[18]);    }
+
+    @Override
+    public double[][] getV() {
+        return new double[0][];
+    }
+
+    @Override
+    public void setVisible() {
+
+    }
+
 }

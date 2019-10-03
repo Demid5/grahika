@@ -4,7 +4,6 @@ public class MyPoint3D {
     private double x, y, z;
 
     public MyPoint3D() {
-
     }
 
     public MyPoint3D(double x, double y, double z) {
