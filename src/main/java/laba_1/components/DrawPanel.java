@@ -57,6 +57,13 @@ public class DrawPanel extends JPanel {
         projection.setConversionPoints(figure);
         figure.setVisible();
 
+        int add = 200;
+        int index = 1;
+        double scalarProduct[] = figure.getPlane();
+        for (double elem: scalarProduct) {
+            graphics2D.drawString((index++) + " грань  = " + elem, 500, (add +=20));
+        }
+
         for (Edge edge: figure.getEdges()) {
             if (edge.isVisible()) {
                 graphics2D.setColor(Color.black);

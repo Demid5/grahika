@@ -16,7 +16,7 @@ public class MatrizTest {
     public void initData() {
         figure = new Tetrahedron();
         v = figure.getV();
-        e = new double[][]{{10, 10, -10}};
+        e = new double[][]{{1, 1, -1}};
     }
 
     @Test

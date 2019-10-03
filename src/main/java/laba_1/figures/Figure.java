@@ -13,4 +13,7 @@ public interface Figure {
 
     double[][] getV();
     public void setVisible();
+
+
+    double[] getPlane();
 }

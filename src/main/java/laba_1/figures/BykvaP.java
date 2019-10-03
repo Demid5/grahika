@@ -97,4 +97,9 @@ public class BykvaP implements Figure {
 
     }
 
+    @Override
+    public double[] getPlane() {
+        return new double[0];
+    }
+
 }

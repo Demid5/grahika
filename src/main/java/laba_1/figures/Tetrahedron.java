@@ -102,7 +102,7 @@ public class Tetrahedron implements Figure {
         plane[2].first.addAll(Arrays.asList(edges[3], edges[4], edges[5]));
         plane[3].first.addAll(Arrays.asList(edges[1], edges[2], edges[5]));
 
-        double e[][] = new double[][]{{10, 10, -10}};
+        double e[][] = new double[][]{{1, 1, -1}};
         double v[][] = getV();
         double s[][] = new double[][]{{points[4].getX(), points[4].getY(), points[4].getZ()}};
 
@@ -131,5 +131,15 @@ public class Tetrahedron implements Figure {
                 edge.setVisible(false);
             }
         }
+
+
+    }
+
+    public double[] getPlane() {
+        double mas[] = new double[plane.length];
+        for (int i = 0; i < plane.length; ++i) {
+            mas[i] = plane[i].second;
+        }
+        return mas;
     }
 }

@@ -148,6 +148,11 @@ public class Cube implements Figure{
         }
     }
 
+    @Override
+    public double[] getPlane() {
+        return new double[0];
+    }
+
     public void setPoints(MyPoint3D[] points) {
         this.points = points;
     }

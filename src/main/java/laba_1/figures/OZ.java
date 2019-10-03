@@ -41,4 +41,9 @@ public class OZ implements Figure {
 
     }
 
+    @Override
+    public double[] getPlane() {
+        return new double[0];
+    }
+
 }
