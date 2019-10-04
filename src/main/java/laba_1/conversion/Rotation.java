@@ -14,11 +14,16 @@ public class Rotation implements Conversion {
     public Rotation() { }
 
     public Rotation(double alpha) {
+        this.exis = "OX";
         this.alpha = alpha;
     }
 
     public void setExis(String exis) {
         this.exis = exis;
+    }
+
+    public String getExis() {
+        return exis;
     }
 
     public void setMatrizRotation() {

@@ -106,13 +106,6 @@ public class Tetrahedron implements Figure {
         double v[][] = getV();
         double s[][] = new double[][]{{points[4].getX(), points[4].getY(), points[4].getZ()}};
 
-       /* double result[][] = Matriz.multiplicationMatriz(s, v);
-        for (int i = 0; i < result[0].length; ++i) {
-            if (result[0][i] < 0) {
-                Matriz.multiPlication(i, v);
-            }
-        }*/
-
         for (int j = 0; j < plane.length; ++j) {
             plane[j].second = Matriz.scalarProduct(new MyPoint3D(v[0][j], v[1][j], v[2][j]), new MyPoint3D(e[0][0], e[0][1], e[0][2]));
         }

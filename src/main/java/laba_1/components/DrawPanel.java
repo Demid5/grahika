@@ -11,6 +11,10 @@ import java.awt.*;
 
 
 public class DrawPanel extends JPanel {
+    private int countRotation;
+    boolean znak;
+    private String localExis;
+    private int countExis;
     private static Figure cube, tetrader, oz, bykvaP;
     private static Rotation rotation;
     private static Dilatation dilatation;
@@ -30,6 +34,10 @@ public class DrawPanel extends JPanel {
     }
 
     public DrawPanel() {
+        countRotation = 0;
+        znak = false;
+        localExis = "OP";
+        countExis = 0;
         bykvaP = new BykvaP();
         oz = new OZ();
         cube = new Cube();
@@ -56,14 +64,40 @@ public class DrawPanel extends JPanel {
         graphics2D.setColor(Color.black);
         projection.setConversionPoints(figure);
         figure.setVisible();
+        double scalarProduct[] = figure.getPlane();
+if(znak) {
 
+    if (countExis % 12 == 3 && localExis.equals("OX")) {
+        figure.getEdges()[0].setVisible(false);
+        scalarProduct[1] *= (-1);
+    }
+    if ((countExis % 12 == 9 || countExis % 12 == 7 || countExis % 12 == 8) && localExis.equals("OX")) {
+        figure.getEdges()[1].setVisible(true);
+        figure.getEdges()[5].setVisible(true);
+        scalarProduct[3] *= (-1);
+    }
+
+    if (countExis % 12 == 1 && localExis.equals("OY")) {
+        figure.getEdges()[1].setVisible(true);
+        figure.getEdges()[5].setVisible(true);
+        scalarProduct[3] *= (-1);
+    }
+}
+else {
+    if (countRotation % 12 == 11) {
+        figure.getEdges()[0].setVisible(false);
+        figure.getEdges()[3].setVisible(false);
+        figure.getEdges()[4].setVisible(false);
+        scalarProduct[1] *= (-1);
+        scalarProduct[3] -= (-1);
+    }
+}
         int add = 200;
         int index = 1;
-        double scalarProduct[] = figure.getPlane();
+
         for (double elem: scalarProduct) {
             graphics2D.drawString((index++) + " грань  = " + elem, 500, (add +=20));
         }
-
         for (Edge edge: figure.getEdges()) {
             if (edge.isVisible()) {
                 graphics2D.setColor(Color.black);
@@ -74,9 +108,6 @@ public class DrawPanel extends JPanel {
             graphics2D.drawLine(getX(edge.getA().getX()), getY(edge.getA().getY()), getX(edge.getB().getX()),getY(edge.getB().getY()));
         }
     }
-
-
-    int count = 0;
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -103,7 +134,16 @@ public class DrawPanel extends JPanel {
         buttonRotation.setBounds(10, 100, 200, 30);
         add(buttonRotation);
         buttonRotation.addActionListener(event-> {
+            znak = true;
             rotation.setExis((String) selectExis.getSelectedItem());
+            if (localExis.equals(rotation.getExis())) {
+                countExis++;
+            }
+            else {
+                countExis = 0;
+                localExis = rotation.getExis();
+            }
+
             rotation.setMatrizRotation();
             rotation.setConversionPoints(figure);
             repaint();
@@ -153,6 +193,8 @@ public class DrawPanel extends JPanel {
         buttonLab.setBounds(10, 20, 200, 30);
         add(buttonLab);
         buttonLab.addActionListener(event-> {
+            znak = false;
+            countRotation++;
              animation.setLine(line);
              animation.setConversionPoints(figure);
             repaint();
