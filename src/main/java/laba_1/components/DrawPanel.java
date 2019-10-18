@@ -96,7 +96,7 @@ else {
         int index = 1;
 
         for (double elem: scalarProduct) {
-            graphics2D.drawString((index++) + " грань  = " + elem, 500, (add +=20));
+            graphics2D.drawString((index++) + " грань  = " + (-elem), 500, (add +=20));
         }
         for (Edge edge: figure.getEdges()) {
             if (edge.isVisible()) {
